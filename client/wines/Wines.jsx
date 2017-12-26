@@ -18,18 +18,24 @@ export class Wines extends Component {
     return (
       <div className="wines">
         <h1 className="wines__title">Wine List</h1>
-        <h2 className="wines__pulldown">Wine pulldown to go here</h2>
+        <div class="dropdown-content">
+  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+</div>
         <ul className="wines__list">
           {
             this.props.wines
               .map(wine =>
                 <div>
-                  <li key={wine.name} className="wine"><img src={
-                  placeholder}/>{wine.name}, {wine.vintage}, {wine.type}
-                   <t2 className="reviews"> {totalReviews(wine.ratings)}
-                   </t2>
-                   <t3 className="stars"> {averagedReviews(wine.ratings)}
-                   </t3>
+                  <li key={wine.name} className="wine"><img className="winepic"
+                  src={placeholder}/>{wine.name}, {wine.vintage}
+                    <li className="wine__type"><t>{wine.type}</t></li>
+                    <t2 className="stars"> {averagedReviews(wine.ratings)}</t2>
+                    <t3 className="reviews"> ({totalReviews(wine.ratings)})</t3>
                   </li>
 
                 </div>)
