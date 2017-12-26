@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Router, browserHistory} from 'react-router';
-import Wines from './wines/Wines';
+import Wines from '../server/wines.json';
 
 export const Routes = () => {
   return (
