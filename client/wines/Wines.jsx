@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-
+import ReactStars from 'react-star-ratings';
 import placeholder from './wine-placeholder.png'
   //importing image for wine placeholder
+
 import * as actionCreators from './wineActions';
 
 import './wines.scss';
@@ -12,30 +13,27 @@ import './wines.scss';
 export class Wines extends Component {
   componentDidMount() {
     this.props.actions.fetchWines();
+
+
   }
 
   render() {
     return (
       <div className="wines">
         <h1 className="wines__title">Wine List</h1>
-        <div class="dropdown-content">
-  <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="#">Link 1</a>
-    <a href="#">Link 2</a>
-    <a href="#">Link 3</a>
-  </div>
-</div>
+        <select className='year__select'><option value="year">Year Select</option></select>
+
         <ul className="wines__list">
+
           {
             this.props.wines
               .map(wine =>
                 <div>
                   <li key={wine.name} className="wine"><img className="winepic"
-                  src={placeholder}/>{wine.name}, {wine.vintage}
+                  src={placeholder}/>{wine.name}, {wine.vintage} {bestSeller(wine.unitsSold)}
                     <li className="wine__type"><t>{wine.type}</t></li>
                     <t2 className="stars"> {averagedReviews(wine.ratings)}</t2>
-                    <t3 className="reviews"> ({totalReviews(wine.ratings)})</t3>
+                    <t3 className="reviews">({totalReviews(wine.ratings)})</t3>
                   </li>
 
                 </div>)
@@ -51,6 +49,11 @@ Wines.propTypes = {
   actions: PropTypes.object
 };
 
+function bestSeller(arg) {
+  //to do write function to check against all wines in database
+  //would be more efficient to sort wines once by sales and list best selling
+  //or label any wine a best seller once a certain number of bottles have sold per month/year...
+}
 function mapStateToProps(state) {
   return {
     ...state.wines
@@ -61,10 +64,15 @@ function averagedReviews(arg) {
   for (var i =0; i < arg.length; i += 1) {
     sum += arg[i].stars
   }
-  var total = sum / arg.length
-  return total.toString()
+  var total = Math.round(sum / arg.length)
+  if (total >= 0) {
+    return total.toString() + ' star rating.'
+  } else {
+    return null
+  }
 }
 //function returning average rating among reviews
+//need to come back in and implement react star rating system.
 function totalReviews (arg) {
   return arg.length.toString()
 }
