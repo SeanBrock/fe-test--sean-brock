@@ -13,8 +13,6 @@ import './wines.scss';
 export class Wines extends Component {
   componentDidMount() {
     this.props.actions.fetchWines();
-
-
   }
 
   render() {
@@ -22,7 +20,6 @@ export class Wines extends Component {
       <div className="wines">
         <h1 className="wines__title">Wine List</h1>
         <select className='year__select'><option value="year">Year Select</option></select>
-
         <ul className="wines__list">
 
           {
