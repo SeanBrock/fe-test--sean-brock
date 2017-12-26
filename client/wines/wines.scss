@@ -1,6 +1,8 @@
 .wines {
   color: black;
   style-type: none;
+  text-align: top;
+  height: 50px;
 }
 
 .wines__title {
@@ -12,6 +14,14 @@
 .wines__pulldown {
   text-align: right;
   color: red;
+}
+
+.reviews {
+  color: purple;
+}
+
+.stars {
+  color: pink;
 }
 
 
