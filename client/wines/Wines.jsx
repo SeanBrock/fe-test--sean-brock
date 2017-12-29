@@ -4,10 +4,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import ReactStars from 'react-star-ratings';
 import placeholder from './wine-placeholder.png'
-  //importing image for wine placeholder
-
 import * as actionCreators from './wineActions';
-
 import './wines.scss';
 
 export class Wines extends Component {
@@ -21,19 +18,16 @@ export class Wines extends Component {
         <h1 className="wines__title">Wine List</h1>
         <select className='year__select'><option value="year">Year Select</option></select>
         <ul className="wines__list">
-
           {
             this.props.wines
-              .map(wine =>
-                <div>
-                  <li key={wine.name} className="wine"><img className="winepic"
-                  src={placeholder}/>{wine.name}, {wine.vintage} {bestSeller(wine.unitsSold)}
-                    <li className="wine__type"><t>{wine.type}</t></li>
-                    <t2 className="stars"> {averagedReviews(wine.ratings)}</t2>
-                    <t3 className="reviews">({totalReviews(wine.ratings)})</t3>
-                  </li>
-
-                </div>)
+            .map(wine =>
+              <li key={wine.name} className="wine"><img className="winepic"
+              src={placeholder}/>{wine.name}, {wine.vintage} {bestSeller(wine.unitsSold)}
+                <t1 className="wine__type"><t>{wine.type}</t></t1>
+                <t2 className="stars">{` ${averagedReviews(wine.ratings)} star rating`}</t2>
+                <t3 className="reviews">({totalReviews(wine.ratings)})</t3>
+              </li>
+            )
           }
         </ul>
       </div>
@@ -56,17 +50,14 @@ function mapStateToProps(state) {
     ...state.wines
   };
 }
-function averagedReviews(arg) {
-  var sum = 0
-  for (var i =0; i < arg.length; i += 1) {
-    sum += arg[i].stars
-  }
-  var total = Math.round(sum / arg.length)
-  if (total >= 0) {
-    return total.toString() + ' star rating.'
-  } else {
-    return null
-  }
+function averagedReviews(arr) {
+  const sum = arr.reduce((sum, rating) => {
+    return sum += rating.stars;
+  }, 0);
+
+  return arr.length > 0
+    ? sum / arr.length
+    : 0;
 }
 //function returning average rating among reviews
 //need to come back in and implement react star rating system.
